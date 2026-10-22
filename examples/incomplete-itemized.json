@@ -1,0 +1,17 @@
+{
+  "specVersion": "0.1.0",
+  "description": "Prepare the roof surface and replace roof flashing.",
+  "currency": "USD",
+  "cost": "4000.00",
+  "workItems": [
+    {
+      "description": "Prepare the roof surface.",
+      "cost": "500.00"
+    },
+    {
+      "description": "Replace roof flashing.",
+      "notes": "Item cost has not been supplied."
+    }
+  ],
+  "notes": "The estimate-wide cost is supplied, but the item cost breakdown is incomplete. No selling price has been supplied."
+}

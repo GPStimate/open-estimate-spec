@@ -1,0 +1,25 @@
+{
+  "specVersion": "0.1.0",
+  "description": "Repair roof flashing at three roof edges.",
+  "currency": "USD",
+  "cost": "100.00",
+  "sellingPrice": "130.00",
+  "workItems": [
+    {
+      "description": "Repair flashing at the north roof edge.",
+      "cost": "33.33",
+      "sellingPrice": "43.33"
+    },
+    {
+      "description": "Repair flashing at the east roof edge.",
+      "cost": "33.33",
+      "sellingPrice": "43.33"
+    },
+    {
+      "description": "Repair flashing at the south roof edge.",
+      "cost": "33.33",
+      "sellingPrice": "43.33"
+    }
+  ],
+  "notes": "Totals and item amounts are supplied as stated. Their numerical agreement is not required for document validity."
+}

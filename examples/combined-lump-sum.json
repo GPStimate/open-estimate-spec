@@ -1,0 +1,20 @@
+{
+  "specVersion": "0.1.0",
+  "title": "Roof flashing replacement",
+  "description": "Replace roof flashing, including materials and labor.",
+  "project": {
+    "name": "Oak Street Warehouse",
+    "location": "123 Oak Street, Columbus, OH"
+  },
+  "currency": "USD",
+  "cost": "4000.00",
+  "sellingPrice": "5000.00",
+  "assumptions": [
+    "Existing roof decking is suitable for the proposed work."
+  ],
+  "exclusions": [
+    "Replacement of damaged roof decking.",
+    "Sales tax."
+  ],
+  "notes": "Lump-sum amounts cover the entire described scope."
+}

@@ -1,0 +1,31 @@
+{
+  "specVersion": "0.1.0",
+  "description": "Supply and install new roof membrane and replace roof flashing.",
+  "currency": "USD",
+  "cost": "5800.00",
+  "sellingPrice": "7250.00",
+  "exclusions": [
+    "Removal of existing roof membrane.",
+    "Sales tax."
+  ],
+  "workItems": [
+    {
+      "description": "Supply and install roof membrane.",
+      "quantity": {
+        "value": "1000",
+        "unit": "ft2"
+      },
+      "cost": "1800.00",
+      "sellingPrice": "2250.00"
+    },
+    {
+      "description": "Replace roof flashing, including materials and labor.",
+      "quantity": {
+        "value": "200",
+        "unit": "ft"
+      },
+      "cost": "4000.00",
+      "sellingPrice": "5000.00"
+    }
+  ]
+}

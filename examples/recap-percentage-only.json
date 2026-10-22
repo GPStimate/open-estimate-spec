@@ -1,0 +1,14 @@
+{
+  "specVersion": "0.1.0",
+  "description": "Replace warehouse roof flashing.",
+  "recap": {
+    "markups": [
+      {
+        "description": "Overhead and profit",
+        "percentage": "25",
+        "basis": "Estimate cost before markups"
+      }
+    ]
+  },
+  "notes": "Only the markup percentage and its basis are supplied. Monetary amounts and currency have not been supplied."
+}

@@ -1,0 +1,28 @@
+{
+  "specVersion": "0.1.0",
+  "title": "Warehouse roof replacement",
+  "description": "Replace the warehouse roof, including materials, labor, subcontracted work, equipment, and other stated costs.",
+  "currency": "USD",
+  "cost": "10000.00",
+  "sellingPrice": "12600.00",
+  "recap": {
+    "materialCost": "5000.00",
+    "laborCost": "3000.00",
+    "subcontractCost": "1000.00",
+    "equipmentCost": "750.00",
+    "otherCost": "250.00",
+    "markups": [
+      {
+        "description": "Overhead and profit",
+        "amount": "2500.00",
+        "percentage": "25",
+        "basis": "Estimate cost before markups"
+      },
+      {
+        "description": "Project administration",
+        "amount": "100.00"
+      }
+    ]
+  },
+  "notes": "Recap amounts and totals are supplied values. No material list, labor breakdown, or work items are included."
+}

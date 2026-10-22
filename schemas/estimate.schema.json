@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Open Estimate Spec 0.1.0",
+  "description": "One construction estimate with an optional cost recap, stated markups, work items, and already-extended monetary amounts.",
+  "$comment": "Currency identifiers refer to ISO 4217; registry membership is not checked here. Estimate totals, recap costs, markups, and item amounts are independently supplied DTO values. Conformance does not require arithmetic, total reconciliation, or derivation of missing values.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["specVersion", "description"],
+  "properties": {
+    "specVersion": {
+      "const": "0.1.0"
+    },
+    "description": {
+      "$ref": "#/$defs/nonblankString"
+    },
+    "title": {
+      "$ref": "#/$defs/nonblankString"
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/nonblankString"
+        },
+        "location": {
+          "$ref": "#/$defs/nonblankString"
+        }
+      }
+    },
+    "currency": {
+      "description": "ISO 4217 currency identifier shared by all monetary amounts.",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3,
+      "pattern": "^[A-Z]{3}(?![\\s\\S])"
+    },
+    "cost": {
+      "$ref": "#/$defs/money"
+    },
+    "sellingPrice": {
+      "$ref": "#/$defs/money"
+    },
+    "recap": {
+      "$ref": "#/$defs/recap"
+    },
+    "notes": {
+      "$ref": "#/$defs/nonblankString"
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nonblankString"
+      }
+    },
+    "exclusions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nonblankString"
+      }
+    },
+    "workItems": {
+      "description": "Ordered, distinct additive portions of the root scope; omit instead of supplying an empty array.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/workItem"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "anyOf": [
+          { "required": ["cost"] },
+          { "required": ["sellingPrice"] },
+          {
+            "required": ["recap"],
+            "properties": {
+              "recap": {
+                "anyOf": [
+                  { "required": ["materialCost"] },
+                  { "required": ["laborCost"] },
+                  { "required": ["subcontractCost"] },
+                  { "required": ["equipmentCost"] },
+                  { "required": ["otherCost"] },
+                  {
+                    "required": ["markups"],
+                    "properties": {
+                      "markups": {
+                        "contains": {
+                          "required": ["amount"]
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "required": ["workItems"],
+            "properties": {
+              "workItems": {
+                "contains": {
+                  "anyOf": [
+                    { "required": ["cost"] },
+                    { "required": ["sellingPrice"] }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "then": {
+        "required": ["currency"]
+      }
+    }
+  ],
+  "$defs": {
+    "nonblankString": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "money": {
+      "description": "Signed decimal string containing an already-extended amount, never a unit price.",
+      "type": "string",
+      "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?(?![\\s\\S])",
+      "$comment": "The end-of-input lookahead rejects trailing newlines even where $ would match before them."
+    },
+    "recap": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "materialCost": {
+          "$ref": "#/$defs/money"
+        },
+        "laborCost": {
+          "$ref": "#/$defs/money"
+        },
+        "subcontractCost": {
+          "$ref": "#/$defs/money"
+        },
+        "equipmentCost": {
+          "$ref": "#/$defs/money"
+        },
+        "otherCost": {
+          "$ref": "#/$defs/money"
+        },
+        "markups": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/markup"
+          }
+        }
+      }
+    },
+    "markup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description"],
+      "anyOf": [
+        { "required": ["amount"] },
+        { "required": ["percentage"] }
+      ],
+      "dependentRequired": {
+        "percentage": ["basis"],
+        "basis": ["percentage"]
+      },
+      "properties": {
+        "description": {
+          "$ref": "#/$defs/nonblankString"
+        },
+        "amount": {
+          "$ref": "#/$defs/money"
+        },
+        "percentage": {
+          "description": "Nonnegative decimal percentage; 10 means 10%.",
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]+)?(?![\\s\\S])"
+        },
+        "basis": {
+          "description": "Text describing the base to which the supplied percentage refers.",
+          "$ref": "#/$defs/nonblankString"
+        }
+      }
+    },
+    "quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit"],
+      "properties": {
+        "value": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]+)?(?![\\s\\S])"
+        },
+        "unit": {
+          "enum": [
+            "ea",
+            "in",
+            "ft",
+            "yd",
+            "in2",
+            "ft2",
+            "yd2",
+            "in3",
+            "ft3",
+            "yd3",
+            "mm",
+            "cm",
+            "m",
+            "m2",
+            "m3",
+            "h",
+            "d"
+          ]
+        }
+      }
+    },
+    "workItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "$ref": "#/$defs/nonblankString"
+        },
+        "quantity": {
+          "$ref": "#/$defs/quantity"
+        },
+        "cost": {
+          "$ref": "#/$defs/money"
+        },
+        "sellingPrice": {
+          "$ref": "#/$defs/money"
+        },
+        "notes": {
+          "$ref": "#/$defs/nonblankString"
+        }
+      }
+    }
+  }
+}

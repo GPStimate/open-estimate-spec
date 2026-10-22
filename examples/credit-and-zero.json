@@ -1,0 +1,24 @@
+{
+  "specVersion": "0.1.0",
+  "description": "Repair roof flashing with a credit for reused material and an included inspection.",
+  "currency": "USD",
+  "cost": "900.00",
+  "sellingPrice": "1000.00",
+  "workItems": [
+    {
+      "description": "Repair roof flashing.",
+      "cost": "1000.00",
+      "sellingPrice": "1250.00"
+    },
+    {
+      "description": "Credit for reused material.",
+      "cost": "-100.00",
+      "sellingPrice": "-250.00"
+    },
+    {
+      "description": "Final roof inspection included at no additional cost or charge.",
+      "cost": "0.00",
+      "sellingPrice": "0.00"
+    }
+  ]
+}
